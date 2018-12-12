@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import es.iessaladillo.yeraymoreno.examen_ymg_tipcalculator.R;
 
+//TODO Fragment to show list of tip records.
+//TODO When clicking any tip record go back to last fragment with tip record data.
+//TODO On back action destroy this fragment.
 public class MainFragmentRecord extends Fragment {
     public MainFragmentRecord(){}
 

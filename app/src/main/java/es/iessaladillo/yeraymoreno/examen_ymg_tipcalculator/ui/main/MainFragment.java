@@ -35,6 +35,7 @@ public class MainFragment extends Fragment {
     private Button btnResetBill;
     private Button btnResetDiners;
 
+    //TODO Dialog to input name of restaurant and save tip record.
     public MainFragment() {
     }
 
