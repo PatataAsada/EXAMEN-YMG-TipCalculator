@@ -37,6 +37,7 @@ public class MainFragment extends Fragment {
 
     //TODO Dialog to input name of restaurant and save tip record.
     //TODO Make it save data inputed.
+    //TODO On save and bill == 0 do nothing
     public MainFragment() {
     }
 
