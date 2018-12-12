@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EXAMEN-YMG-TipCalculator</string>
+    <string name="app_name">TipCalculator</string>
     <string name="txtBill">Bill</string>
     <string name="txtTip">Tip</string>
     <string name="txtTipPercent">Tip%</string>
@@ -7,4 +7,6 @@
     <string name="txtRounded">Rounded</string>
     <string name="txtDiners">Diners</string>
     <string name="main_no_tips_yet">No tips yet</string>
+    <string name="main_list">List</string>
+    <string name="main_save">Save</string>
 </resources>

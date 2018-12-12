@@ -1,21 +1,22 @@
 package es.iessaladillo.yeraymoreno.examen_ymg_tipcalculator.ui.main;
 
 import androidx.lifecycle.ViewModel;
+import es.iessaladillo.yeraymoreno.examen_ymg_tipcalculator.data.model.Record;
 
 class MainFragmentViewModel extends ViewModel {
 
-    private String message;
+    private Record record;
 
-    MainFragmentViewModel(String message) {
-        this.message = message;
+    MainFragmentViewModel(Record record) {
+        this.record = record;
     }
 
-    public String getMessage() {
-        return message;
+    public Record getMessage() {
+        return record;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessage(Record record) {
+        this.record = record;
     }
 
 }

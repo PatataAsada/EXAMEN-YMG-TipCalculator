@@ -22,7 +22,7 @@ public class Record implements Parcelable {
         this.diners = diners;
     }
 
-    protected Record(Parcel in) {
+    private Record(Parcel in) {
         id = in.readLong();
         date = in.readString();
         name = in.readString();

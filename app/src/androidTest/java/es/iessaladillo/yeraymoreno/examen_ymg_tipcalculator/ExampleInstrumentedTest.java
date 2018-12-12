@@ -14,11 +14,14 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+@SuppressWarnings({"ALL", "deprecation"})
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+    @SuppressWarnings("deprecation")
     @Test
     public void useAppContext() {
         // Context of the app under test.
+        //noinspection deprecation,deprecation
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("es.iessaladillo.yeraymoreno.examen_ymg_tipcalculator", appContext.getPackageName());

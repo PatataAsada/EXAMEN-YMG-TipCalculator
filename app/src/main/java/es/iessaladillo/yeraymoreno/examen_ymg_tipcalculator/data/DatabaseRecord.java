@@ -7,13 +7,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import es.iessaladillo.yeraymoreno.examen_ymg_tipcalculator.data.model.Record;
 
-public class DatabaseRecord {
+@SuppressWarnings("ALL")
+class DatabaseRecord {
     public DatabaseRecord() {
         updateRecordsLiveData();
     }
 
-    private ArrayList<Record> records = new ArrayList<>();
-    private MutableLiveData<List<Record>> recordsLiveData = new MutableLiveData<>();
+    private final ArrayList<Record> records = new ArrayList<>();
+    private final MutableLiveData<List<Record>> recordsLiveData = new MutableLiveData<>();
 
     public LiveData<List<Record>> getRecords() {
         return recordsLiveData;

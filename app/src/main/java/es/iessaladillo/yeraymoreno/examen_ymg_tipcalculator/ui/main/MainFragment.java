@@ -1,9 +1,13 @@
 package es.iessaladillo.yeraymoreno.examen_ymg_tipcalculator.ui.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.Objects;
@@ -28,13 +32,14 @@ public class MainFragment extends Fragment {
     private EditText txtPerDiner;
     private EditText txtRounded;
 
-    private MainFragmentViewModel viewModel;
+    private Button btnResetBill;
+    private Button btnResetDiners;
 
     public MainFragment() {
     }
 
     @SuppressWarnings("SameParameterValue")
-    static MainFragment newInstance(Record record) {
+    public static MainFragment newInstance(Record record) {
         MainFragment mainFragment = new MainFragment();
         Bundle arguments = new Bundle();
         arguments.putParcelable(ARG_ITEM, record);
@@ -54,27 +59,116 @@ public class MainFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Objects.requireNonNull(getView());
         Objects.requireNonNull(getArguments());
-        Objects.requireNonNull(getArguments().getString(ARG_ITEM));
-        // Pass argument as initial value of viewModel's message.
-        viewModel = ViewModelProviders.of(this,
-                new MainFragmentViewModelFactory(getArguments().getString(ARG_ITEM))).get(
+        Objects.requireNonNull(getArguments().getParcelable(ARG_ITEM));
+
+        MainFragmentViewModel viewModel = ViewModelProviders.of(this,
+                new MainFragmentViewModelFactory(getArguments().getParcelable(ARG_ITEM))).get(
                 MainFragmentViewModel.class);
         setupViews(getView());
     }
 
     private void setupViews(View view) {
         txtBill = ViewCompat.requireViewById(view, R.id.txtBill);
-        txtTip = ViewCompat.requireViewById(view, R.id.txtTip);
         txtTipPercent = ViewCompat.requireViewById(view, R.id.txtTipPercent);
+        txtDiners = ViewCompat.requireViewById(view, R.id.txtDiners);
+
+        txtTip = ViewCompat.requireViewById(view, R.id.txtTip);
         txtTotal = ViewCompat.requireViewById(view, R.id.txtTotal);
         txtPerDiner = ViewCompat.requireViewById(view, R.id.txtPerDiner);
-        txtDiners = ViewCompat.requireViewById(view, R.id.txtDiners);
         txtRounded = ViewCompat.requireViewById(view, R.id.txtRounded);
 
-        txtTip.setEnabled(false);
-        txtPerDiner.setEnabled(false);
-        txtRounded.setEnabled(false);
-        txtTotal.setEnabled(false);
+        btnResetBill = ViewCompat.requireViewById(view, R.id.btnResetBill);
+        btnResetDiners = ViewCompat.requireViewById(view, R.id.btnResetDiners);
+
+        setupButtons();
+
+        textChangedListeners();
+    }
+
+    private void setupButtons() {
+        btnResetBill.setOnClickListener(v -> resetBillCardView());
+        btnResetDiners.setOnClickListener(v -> resetDiners());
+    }
+
+    private void resetDiners() {
+        txtDiners.setText("1");
+    }
+
+    private void resetBillCardView() {
+        txtTipPercent.setText("10");
+        txtBill.setText("0");
+    }
+
+    private void textChangedListeners() {
+        txtBill.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    txtBill.setText("0");
+                } else {
+                    calculate();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        txtDiners.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    txtDiners.setText("1");
+                } else {
+                    calculate();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        txtTipPercent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    txtTipPercent.setText("10");
+                } else {
+                    calculate();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void calculate() {
+        double tipPercent = Double.parseDouble(txtTipPercent.getText().toString()) / 100;
+        double bill = Double.parseDouble(txtBill.getText().toString());
+        double total = bill + (tipPercent * bill);
+        txtTotal.setText(Double.toString(total));
+        txtTip.setText(Double.toString(tipPercent * bill));
+
+        double diners = Double.parseDouble(txtDiners.getText().toString());
+        double perdiner = total / diners;
+        double rounded = (perdiner > (int) perdiner) ? (int) perdiner + 1 : perdiner;
+        txtPerDiner.setText(Double.toString(perdiner));
+        txtRounded.setText(Double.toString(rounded));
     }
 
 }

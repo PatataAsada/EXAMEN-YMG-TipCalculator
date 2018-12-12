@@ -5,7 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-public class FragmentUtils {
+@SuppressWarnings("unused")
+class FragmentUtils {
 
     private FragmentUtils() {
     }
