@@ -10,7 +10,7 @@ class MainFragmentRecordViewModel extends ViewModel {
     }
 
     public Record getMessage() {
-
+return null;
     }
 
     public void setMessage() {
